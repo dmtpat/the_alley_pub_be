@@ -11,14 +11,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "cibo")
-public class Cibo {
+@Table(name = "bevande")
+public class Bevanda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Il nome del cibo non può esseere lasciato vuoto")
+    @NotBlank(message = "Il nome della bevanda non può esseere lasciato vuoto")
     private String nome;
 
     @Lob
@@ -62,5 +62,6 @@ public class Cibo {
     public void setPrezzo(Double prezzo) {
         this.prezzo = prezzo;
     }
+
 
 }
