@@ -41,6 +41,14 @@ public class Cibo {
     )
     private List<Ingrediente> ingredienti;
 
+    @ManyToMany
+    @JoinTable(
+        name = "categoria_cibo",
+                joinColumns =  @JoinColumn(name = "cibo_id"),
+                        inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private List<Categoria> cetegorie;
+
     //---------------------------GETTER--------------------------------
 
     public Integer getId() {
@@ -58,8 +66,12 @@ public class Cibo {
     public Double getPrezzo() {
         return prezzo;
     }
+
     public List<Ingrediente> getIngredienti() {
         return ingredienti;
+    }
+    public List<Categoria> getCetegorie() {
+        return cetegorie;
     }
     
     //---------------------------SETTER--------------------------------
@@ -79,8 +91,12 @@ public class Cibo {
     public void setPrezzo(Double prezzo) {
         this.prezzo = prezzo;
     }
+
     public void setIngredienti(List<Ingrediente> ingredienti) {
         this.ingredienti = ingredienti;
+    }
+    public void setCetegorie(List<Categoria> cetegorie) {
+        this.cetegorie = cetegorie;
     }
 
 }

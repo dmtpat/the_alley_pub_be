@@ -1,10 +1,15 @@
 package org.java.the_alley_pub_be.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +36,13 @@ public class Bevanda {
     @Min(value = 0, message = "Il prezzo non può essere negativo")
     private Double prezzo;
 
+    @ManyToMany
+    @JoinTable(
+        name = "bevanda_categoria",
+                joinColumns = @JoinColumn(name = "bevanda_id"),
+                        inverseJoinColumns = @JoinColumn(name= "categoria_id")
+    )
+    private List<Categoria> categorie;
     //---------------------------GETTER--------------------------------
 
     public Integer getId() {
@@ -52,6 +64,9 @@ public class Bevanda {
     public Double getPrezzo() {
         return prezzo;
     }
+    public List<Categoria> getCategorie() {
+        return categorie;
+    }
     
     //---------------------------SETTER--------------------------------
 
@@ -70,9 +85,12 @@ public class Bevanda {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    
+
     public void setPrezzo(Double prezzo) {
         this.prezzo = prezzo;
+    }
+    public void setCategorie(List<Categoria> categorie) {
+        this.categorie = categorie;
     }
 
 
