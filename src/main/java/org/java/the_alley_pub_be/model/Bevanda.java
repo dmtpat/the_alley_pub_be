@@ -21,6 +21,9 @@ public class Bevanda {
     @NotBlank(message = "Il nome della bevanda non può esseere lasciato vuoto")
     private String nome;
 
+    @Min(value = 0, message = "Il volume della bevande non può essere negativo")
+    private Integer dimensione;
+
     @Lob
     private String descrizione;
 
@@ -36,6 +39,10 @@ public class Bevanda {
 
     public String getNome() {
         return nome;
+    }
+
+    public Integer getDimensione() {
+        return dimensione;
     }
 
     public String getDescrizione() {
@@ -56,9 +63,14 @@ public class Bevanda {
         this.nome = nome;
     }
 
+    public void setDimensione(Integer dimensione) {
+        this.dimensione = dimensione;
+    }
+
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+    
     public void setPrezzo(Double prezzo) {
         this.prezzo = prezzo;
     }
