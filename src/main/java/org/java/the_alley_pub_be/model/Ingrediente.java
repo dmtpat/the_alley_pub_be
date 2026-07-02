@@ -6,40 +6,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "cibi")
-public class Cibo {
+@Table(name = "ingredienti")
+public class Ingrediente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Il nome del cibo non può esseere lasciato vuoto")
+    @NotBlank(message = "Il nome dell'ingrediente non può essere lasciato vuoto")
     private String nome;
 
     @Lob
     private String descrizione;
 
-    @NotEmpty(message = "Deve sempre essere inserito un prezzo")
-    @Min(value = 0, message = "Il prezzo non può essere negativo")
-    private Double prezzo;
-
-    @ManyToMany
-    @JoinTable(
-        name = "cibo_ingrediente",
-            joinColumns = @JoinColumn(name = "cibo_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
-    )
-    private List<Ingrediente> ingredienti;
+    @ManyToMany(mappedBy = "ingredienti")
+    private List<Cibo> cibi;
 
     //---------------------------GETTER--------------------------------
 
@@ -54,12 +41,8 @@ public class Cibo {
     public String getDescrizione() {
         return descrizione;
     }
-
-    public Double getPrezzo() {
-        return prezzo;
-    }
-    public List<Ingrediente> getIngredienti() {
-        return ingredienti;
+    public List<Cibo> getCibi() {
+        return cibi;
     }
     
     //---------------------------SETTER--------------------------------
@@ -75,12 +58,8 @@ public class Cibo {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-
-    public void setPrezzo(Double prezzo) {
-        this.prezzo = prezzo;
-    }
-    public void setIngredienti(List<Ingrediente> ingredienti) {
-        this.ingredienti = ingredienti;
+    public void setCibi(List<Cibo> cibi) {
+        this.cibi = cibi;
     }
 
 }
