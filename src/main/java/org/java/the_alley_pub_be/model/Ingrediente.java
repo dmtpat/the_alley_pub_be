@@ -52,7 +52,7 @@ public class Ingrediente {
     }
 
     public void setName(String name) {
-        this.nome = name;
+        this.name = name;
     }
 
     public void setDescrizione(String descrizione) {
