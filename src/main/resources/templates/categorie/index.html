@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorie Index</title>
+</head>
+
+<body>
+    <h1>Index delle categorie</h1>
+    <h2 th:unless="${categorie.size() > 0}" th:text="|Non ci sono categorie nel menù!|"></h2>
+    <table th:if="${categorie.size() > 0}">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categorie}" th:object="${categoria}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

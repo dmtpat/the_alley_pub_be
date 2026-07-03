@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Index</title>
+</head>
+
+<body>
+    <h1>Index dei cibi</h1>
+    <h2 th:unless="${cibi.size() > 0}" th:text="|Non ci sono cibi nel menù!|"></h2>
+    <table th:if="${cibi.size() > 0}">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cibo : ${cibi}" th:object="${cibo}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{descrizione}"></td>
+                <td th:text="*{prezzo}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
