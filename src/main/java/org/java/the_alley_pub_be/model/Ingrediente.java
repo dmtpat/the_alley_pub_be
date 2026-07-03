@@ -20,7 +20,7 @@ public class Ingrediente {
     private Integer id;
 
     @NotBlank(message = "Il nome dell'ingrediente non può essere lasciato vuoto")
-    private String nome;
+    private String name;
 
     @Lob
     private String descrizione;
@@ -34,8 +34,8 @@ public class Ingrediente {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public String getDescrizione() {
@@ -51,8 +51,8 @@ public class Ingrediente {
         this.id = id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.nome = name;
     }
 
     public void setDescrizione(String descrizione) {

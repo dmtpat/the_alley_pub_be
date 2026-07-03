@@ -24,7 +24,7 @@ public class Cibo {
     private Integer id;
 
     @NotBlank(message = "Il nome del cibo non può esseere lasciato vuoto")
-    private String nome;
+    private String name;
 
     @Lob
     private String descrizione;
@@ -47,7 +47,7 @@ public class Cibo {
                 joinColumns =  @JoinColumn(name = "cibo_id"),
                         inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
-    private List<Categoria> cetegorie;
+    private List<Categoria> categorie;
 
     //---------------------------GETTER--------------------------------
 
@@ -55,8 +55,8 @@ public class Cibo {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public String getDescrizione() {
@@ -70,8 +70,8 @@ public class Cibo {
     public List<Ingrediente> getIngredienti() {
         return ingredienti;
     }
-    public List<Categoria> getCetegorie() {
-        return cetegorie;
+    public List<Categoria> getCategorie() {
+        return categorie;
     }
     
     //---------------------------SETTER--------------------------------
@@ -80,8 +80,8 @@ public class Cibo {
         this.id = id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescrizione(String descrizione) {
@@ -95,8 +95,8 @@ public class Cibo {
     public void setIngredienti(List<Ingrediente> ingredienti) {
         this.ingredienti = ingredienti;
     }
-    public void setCetegorie(List<Categoria> cetegorie) {
-        this.cetegorie = cetegorie;
+    public void setCetegorie(List<Categoria> categorie) {
+        this.categorie = categorie;
     }
 
 }

@@ -24,7 +24,7 @@ public class Bevanda {
     private Integer id;
 
     @NotBlank(message = "Il nome della bevanda non può esseere lasciato vuoto")
-    private String nome;
+    private String name;
 
     @Min(value = 0, message = "Il volume della bevande non può essere negativo")
     private Integer dimensione;
@@ -49,8 +49,8 @@ public class Bevanda {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public Integer getDimensione() {
@@ -74,8 +74,8 @@ public class Bevanda {
         this.id = id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDimensione(Integer dimensione) {

@@ -19,12 +19,12 @@ public class Categoria {
     private Integer id;
     
     @NotBlank(message = "Il nome della categoria non può essere vuoto")
-    private String nome;
+    private String name;
 
-    @ManyToMany(mappedBy = "categoria")
+    @ManyToMany(mappedBy = "categorie")
     private List<Cibo> cibi;
 
-    @ManyToMany(mappedBy = "categoria")
+    @ManyToMany(mappedBy = "categorie")
     private List<Bevanda> bevande;
 
 
@@ -34,8 +34,8 @@ public class Categoria {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public List<Cibo> getCibi() {
@@ -51,8 +51,8 @@ public class Categoria {
         this.id = id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setCibi(List<Cibo> cibi) {
