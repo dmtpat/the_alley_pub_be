@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredienti Show</title>
+</head>
+
+<body>
+    <h1>Show dell'ingrediente</h1>
+    <h2 th:if="${ingrediente == null}" th:text="|L'ingrediente con id ${id} non è presente nel menù!|"></h2>
+    <table th:if="${ingrediente != null}">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Descrizione</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:object="${ingrediente}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{descrizione}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

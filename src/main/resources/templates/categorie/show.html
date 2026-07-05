@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorie Show</title>
+</head>
+
+<body>
+    <h1>Show della categoria</h1>
+    <h2 th:unless="${categoria != null}" th:text="|La categoria con id ${id} non è presente nel menù!|"></h2>
+    <table th:if="${categoria != null}">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:object="${categoria}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
