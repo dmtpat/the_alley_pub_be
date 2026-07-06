@@ -71,9 +71,21 @@ public class CategoriaController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("categoria", categoriaRepository.findById(id));
+        model.addAttribute("categoria", categoriaRepository.findById(id).get());
         model.addAttribute("edit", true);
         return "categorie/create-edit";
     }
 
+    @PostMapping("/edit/{id}")
+    public String update(
+        @Valid @ModelAttribute("categoria") Categoria formCategoria,
+                BindingResult bindingResult,
+                        Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "categorie/create-edit";
+        }
+        categoriaRepository.save(formCategoria);
+        return "redirect:/categorie/" + formCategoria.getId();
+    }
 }

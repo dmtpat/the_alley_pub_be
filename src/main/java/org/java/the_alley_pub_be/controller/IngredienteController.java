@@ -74,8 +74,21 @@ public class IngredienteController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("ingrediente", ingredienteRepository.findById(id));
+        model.addAttribute("ingrediente", ingredienteRepository.findById(id).get());
         model.addAttribute("edit", true);
         return "ingredienti/create-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(
+        @Valid @ModelAttribute("ingrediente") Ingrediente formIngrediente,
+                BindingResult bindingResult,
+                        Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "ingredienti/create-edit";
+        }
+        ingredienteRepository.save(formIngrediente);
+        return "redirect:/ingredienti/" + formIngrediente.getId();
     }
 }

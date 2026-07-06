@@ -79,10 +79,25 @@ public class BevandaController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("bevanda", bevandaRepository.findById(id));
+        model.addAttribute("bevanda", bevandaRepository.findById(id).get());
         model.addAttribute("ingredienti", ingredienteRepository.findAll());
         model.addAttribute("categorie", categoriaRepository.findAll());
         model.addAttribute("edit", true);
         return "bevande/create-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(
+        @Valid @ModelAttribute("bevanda") Bevanda formBevanda,
+                BindingResult bindingResult,
+                        Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredienti", ingredienteRepository.findAll());
+            model.addAttribute("categorie", categoriaRepository.findAll());
+            return "bevande/create-edit";
+        }
+        bevandaRepository.save(formBevanda);
+        return "redirect:/bevande/"+formBevanda.getId();
     }
 }
