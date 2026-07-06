@@ -71,9 +71,18 @@ public class BevandaController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("ingredienti", ingredienteRepository.findAll());
             model.addAttribute("categorie", categoriaRepository.findAll());
-            return "categoria/create-edit";
+            return "bevande/create-edit";
         }
         bevandaRepository.save(formBevanda);
         return "redirect:/bevande";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("bevanda", bevandaRepository.findById(id));
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
+        model.addAttribute("categorie", categoriaRepository.findAll());
+        model.addAttribute("edit", true);
+        return "bevande/create-edit";
     }
 }

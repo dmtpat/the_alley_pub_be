@@ -68,4 +68,10 @@ public class CategoriaController {
         categoriaRepository.save(formCategoria);
         return "redirect:/categorie";
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("categoria", categoriaRepository.findById(id));
+        return "categorie/create-edit";
+    }
 }

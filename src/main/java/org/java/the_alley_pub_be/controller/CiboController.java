@@ -80,5 +80,14 @@ public class CiboController {
         ciboRepository.save(formCibo);
         return "redirect:/cibi";
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("cibo", ciboRepository.findById(id));
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
+        model.addAttribute("categorie", categoriaRepository.findAll());
+        model.addAttribute("edit", true);
+        return "cibi/create-edit";
+    }
     
 }
