@@ -104,4 +104,9 @@ public class CiboController {
         ciboRepository.save(formCibo);
         return "redirect:/cibi/" + formCibo.getId();
     }
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable Integer id, Model model) {
+        ciboRepository.deleteById(id);
+        return "redirect:/cibi";
+    }
 }

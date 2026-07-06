@@ -88,4 +88,10 @@ public class CategoriaController {
         categoriaRepository.save(formCategoria);
         return "redirect:/categorie/" + formCategoria.getId();
     }
+
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable Integer id, Model model) {
+        categoriaRepository.deleteById(id);
+        return "redirect:/categorie";
+    }
 }

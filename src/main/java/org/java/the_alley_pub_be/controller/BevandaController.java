@@ -98,6 +98,12 @@ public class BevandaController {
             return "bevande/create-edit";
         }
         bevandaRepository.save(formBevanda);
-        return "redirect:/bevande/"+formBevanda.getId();
+        return "redirect:/bevande/" + formBevanda.getId();
+    }
+    
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, Model model) {
+        bevandaRepository.deleteById(id);
+        return "redirect:/bevande";
     }
 }

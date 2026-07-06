@@ -91,4 +91,10 @@ public class IngredienteController {
         ingredienteRepository.save(formIngrediente);
         return "redirect:/ingredienti/" + formIngrediente.getId();
     }
+
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable Integer id, Model model) {
+        ingredienteRepository.deleteById(id);
+        return "redirect:/ingrediente";
+    }
 }
