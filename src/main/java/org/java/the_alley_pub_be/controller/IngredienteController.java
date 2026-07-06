@@ -7,9 +7,14 @@ import org.java.the_alley_pub_be.model.Ingrediente;
 import org.java.the_alley_pub_be.repository.IngredienteRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/ingredienti")
@@ -46,10 +51,23 @@ public class IngredienteController {
 
     @RequestMapping("/create")
     private String create(Model model) {
-        
+
         model.addAttribute("ingrediente", new Ingrediente());
 
         return "ingredienti/create-edit";
+    }
+    
+    @PostMapping("/create")
+    public String store(
+        @Valid @ModelAttribute("ingrediente") Ingrediente formIngrediente,
+                BindingResult bindingResult,
+                        Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "ingredienti/create-edit";
+        }
+        ingredienteRepository.save(formIngrediente);
+        return "redirect:/ingredienti";
     }
 
 }

@@ -6,23 +6,31 @@ import java.util.Optional;
 import org.java.the_alley_pub_be.model.Bevanda;
 import org.java.the_alley_pub_be.repository.BevandaRepository;
 import org.java.the_alley_pub_be.repository.CategoriaRepository;
+import org.java.the_alley_pub_be.repository.IngredienteRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/bevande")
 public class BevandaController {
 
+    private final IngredienteRepository ingredienteRepository;
     private final CategoriaRepository categoriaRepository;
     private final BevandaRepository bevandaRepository;
 
-    public BevandaController(BevandaRepository bevandaRepository, CategoriaRepository categoriaRepository) {
+    public BevandaController(BevandaRepository bevandaRepository, CategoriaRepository categoriaRepository, IngredienteRepository ingredienteRepository) {
         this.bevandaRepository = bevandaRepository;
         this.categoriaRepository = categoriaRepository;
+        this.ingredienteRepository = ingredienteRepository;
     }
 
     @GetMapping
@@ -52,5 +60,20 @@ public class BevandaController {
         model.addAttribute("categorie", categoriaRepository.findAll());
 
         return "bevande/create-edit";
+    }
+
+    @PostMapping("/create")
+    private String store(
+        @Valid @ModelAttribute("bevanda") Bevanda formBevanda,
+                BindingResult bindingResult,
+                        Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredienti", ingredienteRepository.findAll());
+            model.addAttribute("categorie", categoriaRepository.findAll());
+            return "categoria/create-edit";
+        }
+        bevandaRepository.save(formBevanda);
+        return "redirect:/bevande";
     }
 }

@@ -7,10 +7,15 @@ import org.java.the_alley_pub_be.model.Categoria;
 import org.java.the_alley_pub_be.repository.CategoriaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/categorie")
@@ -49,5 +54,18 @@ public class CategoriaController {
     public String create(Model model) {
         model.addAttribute("categoria", new Categoria());
         return "categorie/create-edit";
+    }
+
+    @PostMapping("/create")
+    public String store(
+        @Valid @ModelAttribute("categoria") Categoria formCategoria,
+                BindingResult bindingResult,
+                        Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "categorie/create-edit";
+        }
+        categoriaRepository.save(formCategoria);
+        return "redirect:/categorie";
     }
 }
