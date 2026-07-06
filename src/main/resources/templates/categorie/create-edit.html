@@ -12,8 +12,7 @@
     <h2 th:if="${categoria == null}" th:text="|La categoria con id ${id} non è presente nel menù!|"></h2>
     <h2 th:if="${edit}" th:text="|Modifica di ${categoria.name}|"></h2>
     <form id="categoria-form" method="post"
-        th:action="${edit} ?@{|/categorie/edit/{id}(id=${categoria.id})|} :@{/categorie/create}"
-        th:object="${categoria}">
+        th:action="${edit} ?@{|/categorie/edit/${categoria.id}|} :@{/categorie/create}" th:object="${categoria}">
 
         <label for="name">Nome</label>
         <input type="text" name="name" id="name" th:field="*{name}">

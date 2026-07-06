@@ -11,8 +11,8 @@
     <h1>Bevanda</h1>
     <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo bevanda|"></h2>
     <h2 th:if="${edit}" th:text="|Modifica di ${bevanda.name}|"></h2>
-    <form id="bevanda-form" method="post"
-        th:action="${edit} ?@{|/bevande/edit/{id}(id=${bevanda.id})|} :@{/bevande/create}" th:object="${bevanda}">
+    <form id="bevanda-form" method="post" th:action="${edit} ?@{|/bevande/edit/${bevanda.id}|} :@{/bevande/create}"
+        th:object="${bevanda}">
 
         <label for="name">Nome</label>
         <input type="text" name="name" id="name" th:field="*{name}">

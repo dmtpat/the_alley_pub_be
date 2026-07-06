@@ -12,7 +12,7 @@
     <h2 th:if="${ingrediente == null}" th:text="|L'ingrediente con id ${id} non è presente nel menù!|"></h2>
     <h2 th:if="${edit}" th:text="|Modifica di ${ingrediente.name}|"></h2>
     <form id="ingrediente-form" method="post"
-        th:action="${edit} ?@{|/ingredienti/edit/{id}(id=${ingrediente.id})|} :@{/ingredienti/create}"
+        th:action="${edit} ?@{|/ingredienti/edit/${ingrediente.id}|} :@{/ingredienti/create}"
         th:object="${ingrediente}">
 
         <label for="name">Nome</label>

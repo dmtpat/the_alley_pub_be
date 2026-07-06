@@ -11,7 +11,7 @@
     <h1>Show dei cibi</h1>
     <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo cibo|"></h2>
     <h2 th:if="${edit}" th:text="|Modifica di ${cibo.name}|"></h2>
-    <form id="cibo-form" method="post" th:action="${edit} ?@{|/cibi/edit/{id}(id=${cibo.id})|} :@{/cibi/create}"
+    <form id="cibo-form" method="post" th:action="${edit} ?@{|/cibi/edit/${cibo.id}|} :@{/cibi/create}"
         th:object="${cibo}">
 
         <label for="name">Nome</label>
