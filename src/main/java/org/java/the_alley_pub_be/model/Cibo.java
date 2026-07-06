@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cibi")
@@ -29,9 +29,9 @@ public class Cibo {
     @Lob
     private String descrizione;
 
-    @NotEmpty(message = "Deve sempre essere inserito un prezzo")
+    @NotNull(message = "Deve sempre essere inserito un prezzo")
     @Min(value = 0, message = "Il prezzo non può essere negativo")
-    private Double prezzo;
+    private float prezzo;
 
     @ManyToMany
     @JoinTable(
@@ -63,7 +63,7 @@ public class Cibo {
         return descrizione;
     }
 
-    public Double getPrezzo() {
+    public float getPrezzo() {
         return prezzo;
     }
 
@@ -88,7 +88,7 @@ public class Cibo {
         this.descrizione = descrizione;
     }
 
-    public void setPrezzo(Double prezzo) {
+    public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
     }
 
