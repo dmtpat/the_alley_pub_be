@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.java.the_alley_pub_be.model.Bevanda;
 import org.java.the_alley_pub_be.repository.BevandaRepository;
+import org.java.the_alley_pub_be.repository.CategoriaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/bevande")
 public class BevandaController {
 
+    private final CategoriaRepository categoriaRepository;
     private final BevandaRepository bevandaRepository;
 
-    public BevandaController(BevandaRepository bevandaRepository) {
+    public BevandaController(BevandaRepository bevandaRepository, CategoriaRepository categoriaRepository) {
         this.bevandaRepository = bevandaRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     @GetMapping
@@ -41,5 +44,13 @@ public class BevandaController {
             model.addAttribute("bevanda", bevandaAttempt.get());
         }
         return "bevande/show";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("bevanda", new Bevanda());
+        model.addAttribute("categorie", categoriaRepository.findAll());
+
+        return "bevande/create-edit";
     }
 }

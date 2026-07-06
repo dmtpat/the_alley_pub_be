@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.java.the_alley_pub_be.model.Cibo;
+import org.java.the_alley_pub_be.repository.CategoriaRepository;
 import org.java.the_alley_pub_be.repository.CiboRepository;
+import org.java.the_alley_pub_be.repository.IngredienteRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/cibi")
 public class CiboController {
 
+    private final CategoriaRepository categoriaRepository;
+    private final IngredienteRepository ingredienteRepository;
     private final CiboRepository ciboRepository;
 
-    public CiboController(CiboRepository ciboRepository) {
+    public CiboController(CiboRepository ciboRepository, IngredienteRepository ingredienteRepository, CategoriaRepository categoriaRepository) {
         this.ciboRepository = ciboRepository;
+        this.ingredienteRepository = ingredienteRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     @GetMapping
@@ -41,7 +47,17 @@ public class CiboController {
         } else {
             model.addAttribute("cibo", ciboAttempt.get());
         }
-        
+
         return "cibi/show";
+    }
+    
+    @GetMapping("/create")
+    public String create(Model model) {
+        
+        model.addAttribute("cibo", new Cibo());
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
+        model.addAttribute("categorie", categoriaRepository.findAll());
+
+        return "cibi/create-edit";
     }
 }

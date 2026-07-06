@@ -34,14 +34,20 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable Integer id, Model model){
+    public String show(@PathVariable Integer id, Model model) {
         Optional<Categoria> categoriaAttempt = categoriaRepository.findById(id);
-        if(categoriaAttempt.isEmpty()){
+        if (categoriaAttempt.isEmpty()) {
             model.addAttribute("categoria", null);
-        }else{
+        } else {
             model.addAttribute("categoria", categoriaAttempt.get());
         }
 
         return "categorie/show";
+    }
+    
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("categoria", new Categoria());
+        return "categorie/create-edit";
     }
 }

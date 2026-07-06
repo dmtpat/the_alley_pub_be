@@ -44,4 +44,12 @@ public class IngredienteController {
         return "ingredienti/show";
     }
 
+    @RequestMapping("/create")
+    private String create(Model model) {
+        
+        model.addAttribute("ingrediente", new Ingrediente());
+
+        return "ingredienti/create-edit";
+    }
+
 }
