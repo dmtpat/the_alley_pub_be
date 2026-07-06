@@ -72,6 +72,8 @@ public class CategoriaController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("categoria", categoriaRepository.findById(id));
+        model.addAttribute("edit", true);
         return "categorie/create-edit";
     }
+
 }

@@ -65,6 +65,7 @@ public class IngredienteController {
                         Model model
     ) {
         if (bindingResult.hasErrors()) {
+            
             return "ingredienti/create-edit";
         }
         ingredienteRepository.save(formIngrediente);
@@ -74,6 +75,7 @@ public class IngredienteController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("ingrediente", ingredienteRepository.findById(id));
+        model.addAttribute("edit", true);
         return "ingredienti/create-edit";
     }
 }
