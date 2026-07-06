@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorie</title>
+</head>
+
+<body>
+    <h1>Categoria</h1>
+    <h2 th:if="${categoria == null}" th:text="|La categoria con id ${id} non è presente nel menù!|"></h2>
+    <h2 th:if="${edit}" th:text="|Modifica di ${categoria.name}|"></h2>
+    <form id="categoria-form" method="post"
+        th:action="${edit} ?@{|/categorie/edit/{id}(id=${categoria.id})|} :@{/categorie/create}"
+        th:object="${categoria}">
+
+        <label for="name">Nome</label>
+        <input type="text" name="name" id="name" th:field="*{name}">
+        <div>
+            <input type="submit" value="Submit">
+            <a th:href="${edit} ?@{|/categorie/edit/{id}(id=${categoria.getId()})|} :@{/categorie/create}"> Reset
+                dei valori</a>
+        </div>
+    </form>
+</body>
+
+</html>

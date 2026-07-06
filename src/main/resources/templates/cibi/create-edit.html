@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food </title>
+</head>
+
+<body>
+    <h1>Show dei cibi</h1>
+    <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo cibo|"></h2>
+    <h2 th:if="${edit}" th:text="|Modifica di ${cibo.name}|"></h2>
+    <form id="cibo-form" method="post" th:action="${edit} ?@{|/cibi/edit/{id}(id=${cibo.id})|} :@{/cibi/create}"
+        th:object="${cibo}">
+
+        <label for="name">Nome</label>
+        <input type="text" name="name" id="name" th:field="*{name}">
+        <label for="descrizione">Descrizione</label>
+        <textarea name="descrizione" id="descrizione" th:field="*{descrizione}"></textarea>
+        <label for="prezzo">Prezzo</label>
+        <input type="number" name="prezzo" id="prezzo" th:field="*{prezzo}">
+        <div id="ingredients-checkbox">
+            <h5>Seleziona gli Ingredienti</h5>
+            <div th:each="ingrediente : ${ingredienti}">
+                <label for="|ingrediente-${ingrediente.id}|" th:text="${ingrediente.name}"></label>
+                <input type="checkbox" id="|ingrediente-${ingrediente.id}|" th:value="${ingrediente.id}"
+                    th:field="${cibo.ingredienti}">
+            </div>
+        </div>
+        <div id="categorie-checkbox">
+            <h5>Seleziona le categorie</h5>
+            <div th:each="categoria : ${categorie}">
+                <label for="|categoria-${.id}|" th:text="${categoria.name}"></label>
+                <input type="checkbox" id="|categoria-${.id}|" th:value="${categoria.id}" th:field="${cibo.categorie}">
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+            <a th:href="${edit} ?@{|/cibi/edit/{id}(id=${cibo.getId()})|} :@{/cibi/create}"> Reset dei valori</a>
+        </div>
+    </form>
+</body>
+
+</html>
