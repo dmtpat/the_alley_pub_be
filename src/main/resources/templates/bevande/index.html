@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{fragments/bootstrap :: bootstrapCss()}"></th:block>
     <title>Bevande Index</title>
 </head>
 
 <body>
+    <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <h1>Index delle bevande</h1>
     <h2 th:unless="${bevande.size() > 0}" th:text="|Non ci sono bevande nel menù!|"></h2>
     <table th:if="${bevande.size() > 0}">
@@ -30,6 +32,7 @@
             </tr>
         </tbody>
     </table>
+    <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 
 </html>

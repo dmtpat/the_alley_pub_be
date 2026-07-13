@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{fragments/bootstrap :: bootstrapCss()}"></th:block>
     <title>Ingredienti</title>
 </head>
 
 <body>
+    <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <h1>Ingrediente</h1>
     <h2 th:if="${ingrediente == null}" th:text="|L'ingrediente con id ${id} non è presente nel menù!|"></h2>
     <h2 th:if="${edit}" th:text="|Modifica di ${ingrediente.name}|"></h2>
@@ -25,6 +27,7 @@
                 dei valori</a>
         </div>
     </form>
+    <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 
 </html>
