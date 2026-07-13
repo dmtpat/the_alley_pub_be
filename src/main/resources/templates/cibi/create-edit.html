@@ -10,38 +10,48 @@
 
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Show dei cibi</h1>
-    <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo cibo|"></h2>
-    <h2 th:if="${edit}" th:text="|Modifica di ${cibo.name}|"></h2>
-    <form id="cibo-form" method="post" th:action="${edit} ?@{|/cibi/edit/${cibo.id}|} :@{/cibi/create}"
-        th:object="${cibo}">
+    <div class="container">
+        <h1>Show dei cibi</h1>
+        <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo cibo|"></h2>
+        <h2 th:if="${edit}" th:text="|Modifica di ${cibo.name}|"></h2>
+        <form id="cibo-form" method="post" th:action="${edit} ?@{|/cibi/edit/${cibo.id}|} :@{/cibi/create}"
+            th:object="${cibo}" class="">
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name" th:field="*{name}">
-        <label for="descrizione">Descrizione</label>
-        <textarea name="descrizione" id="descrizione" th:field="*{descrizione}"></textarea>
-        <label for="prezzo">Prezzo</label>
-        <input type="number" name="prezzo" id="prezzo" th:field="*{prezzo}">
-        <div id="ingredients-checkbox">
-            <h5>Seleziona gli Ingredienti</h5>
-            <div th:each="ingrediente : ${ingredienti}">
-                <label for="|ingrediente-${ingrediente.id}|" th:text="${ingrediente.name}"></label>
-                <input type="checkbox" id="|ingrediente-${ingrediente.id}|" th:value="${ingrediente.id}"
-                    th:field="${cibo.ingredienti}">
+            <label for="name" class="form-label">Nome</label>
+            <input type="text" name="name" id="name" th:field="*{name}" class="form-control">
+            <label for="descrizione" class="form-label">Descrizione</label>
+            <textarea name="descrizione" id="descrizione" th:field="*{descrizione}" class="form-control"></textarea>
+            <label for="prezzo" class="form-label">Prezzo</label>
+            <input type="number" name="prezzo" id="prezzo" th:field="*{prezzo}" class="form-control">
+            <div class="container-fluid d-flex">
+                <div class="row w-100">
+                    <div id="ingredients-checkbox" class="form-check col-6">
+                        <h5>Seleziona gli Ingredienti</h5>
+                        <div th:each="ingrediente : ${ingredienti}">
+                            <label for="|ingrediente-${ingrediente.id}|" th:text="${ingrediente.name}"
+                                class="form-check-label"></label>
+                            <input type="checkbox" id="|ingrediente-${ingrediente.id}|" th:value="${ingrediente.id}"
+                                th:field="${cibo.ingredienti}" class="form-check-input">
+                        </div>
+                    </div>
+                    <div id="categorie-checkbox" class="form-check col-6">
+                        <h5>Seleziona le categorie</h5>
+                        <div th:each="categoria : ${categorie}">
+                            <label for="|categoria-${.id}|" th:text="${categoria.name}"
+                                class="form-check-label"></label>
+                            <input type="checkbox" id="|categoria-${.id}|" th:value="${categoria.id}"
+                                th:field="${cibo.categorie}" class="form-check-input">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div id="categorie-checkbox">
-            <h5>Seleziona le categorie</h5>
-            <div th:each="categoria : ${categorie}">
-                <label for="|categoria-${.id}|" th:text="${categoria.name}"></label>
-                <input type="checkbox" id="|categoria-${.id}|" th:value="${categoria.id}" th:field="${cibo.categorie}">
+            <div class="container-fluid w-100">
+                <input class="btn btn-outline-primary" type="submit" value="Submit">
+                <a th:href="${edit} ?@{|/cibi/edit/{id}(id=${cibo.getId()})|} :@{/cibi/create}"
+                    class="btn btn-outline-danger ms-auto me-1"> Reset dei valori</a>
             </div>
-        </div>
-        <div>
-            <input type="submit" value="Submit">
-            <a th:href="${edit} ?@{|/cibi/edit/{id}(id=${cibo.getId()})|} :@{/cibi/create}"> Reset dei valori</a>
-        </div>
-    </form>
+        </form>
+    </div>
     <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 
