@@ -1,0 +1,30 @@
+<th:block th:fragment="deleteModal (value, route)">
+    <!-- [[*{name}]] quello che dev essere all'interno di value -->
+
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+        th:data-bs-target="|#deleteModal-*{id}|">🗑</button>
+
+    <div class="modal fade" th:id="|deleteModal-*{id}|" tabindex="-1" aria-labelledby="youSureModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="youSureModal">Delete <span class="fw-bold">[[${value}]]</span></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                    <h3>Are you sure? </h3>
+                    <h4>Do you want to <span class="text-decoration-underline">delete </span>
+                        <span class="fw-bold fs-2">[[${value}]]</span>?
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+                    <form action="#" th:action="@{/{route}/delete/{id}(id = *{id}, route = ${route})}" method="post">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
