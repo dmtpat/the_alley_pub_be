@@ -12,7 +12,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -26,7 +25,6 @@ public class User {
     private String username;
 
     @NotBlank(message = "The password can't be blank or empty")
-    @Size(min = 8, message = "The password must contain at least 8 characters")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
