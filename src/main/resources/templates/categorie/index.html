@@ -10,22 +10,35 @@
 
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Index delle categorie</h1>
-    <h2 th:unless="${categorie.size() > 0}" th:text="|Non ci sono categorie nel menù!|"></h2>
-    <table th:if="${categorie.size() > 0}">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="categoria : ${categorie}" th:object="${categoria}">
-                <td th:text="*{id}"></td>
-                <td th:text="*{name}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Index delle categorie</h1>
+        <h2 th:unless="${categorie.size() > 0}" th:text="|Non ci sono categorie nel menù!|"></h2>
+        <table th:if="${categorie.size() > 0}" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Dettagli</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">Modifica</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">Elimina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="categoria : ${categorie}" th:object="${categoria}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td><a class="btn btn-success px-3" th:href="|categorie/*{id}|"> + </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning"
+                            th:href="|categorie/edit/*{id}|">✏</a>
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <th:block th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'categorie')}">
+                        </th:block>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 

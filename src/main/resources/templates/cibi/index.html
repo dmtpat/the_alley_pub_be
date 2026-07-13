@@ -10,26 +10,40 @@
 
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Index dei cibi</h1>
-    <h2 th:unless="${cibi.size() > 0}" th:text="|Non ci sono cibi nel menù!|"></h2>
-    <table th:if="${cibi.size() > 0}">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Descrizione</th>
-                <th>Prezzo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="cibo : ${cibi}" th:object="${cibo}">
-                <td th:text="*{id}"></td>
-                <td th:text="*{name}"></td>
-                <td th:text="*{descrizione}"></td>
-                <td th:text="*{prezzo}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+
+        <h1>Index dei cibi</h1>
+        <h2 th:unless="${cibi.size() > 0}" th:text="|Non ci sono cibi nel menù!|"></h2>
+        <table th:if="${cibi.size() > 0}" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Descrizione</th>
+                    <th>Prezzo</th>
+                    <th>Dettagli</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">Modifica</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">Elimina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cibo : ${cibi}" th:object="${cibo}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{descrizione}"></td>
+                    <td th:text="*{prezzo}"></td>
+                    <td><a class="btn btn-success px-3" th:href="|cibi/*{id}|"> + </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning"
+                            th:href="|cibi/edit/*{id}|">✏</a>
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <th:block th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'cibi')}">
+                        </th:block>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 
