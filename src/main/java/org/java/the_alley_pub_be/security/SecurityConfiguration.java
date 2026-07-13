@@ -2,7 +2,6 @@ package org.java.the_alley_pub_be.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,7 +23,9 @@ public class SecurityConfiguration {
                 .hasAuthority("ADMIN")
                 .requestMatchers("/cibi/**", "/bevande/**", "/categorie/**", "/ingredienti/**")
                 .hasAnyAuthority("ADMIN", "USER")
-                .requestMatchers("/cibi", "/bevande", "/categorie", "/ingredienti").permitAll())
+                .requestMatchers("/cibi", "/bevande", "/categorie", "/ingredienti").permitAll()
+                .requestMatchers("/").permitAll()
+                .anyRequest().authenticated())
                 .formLogin(form -> form.permitAll())
                 .logout(logout -> logout.permitAll())
                 .exceptionHandling(exception -> exception.accessDeniedPage(null))
