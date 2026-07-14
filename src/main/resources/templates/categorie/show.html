@@ -8,25 +8,90 @@
     <title>Categorie Show</title>
 </head>
 
-<body>
+<body style="background-color:  #516b51;">
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Show della categoria</h1>
-    <h2 th:unless="${categoria != null}" th:text="|La categoria con id ${id} non è presente nel menù!|"></h2>
-    <table th:if="${categoria != null}">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:object="${categoria}">
-                <td th:text="*{id}"></td>
-                <td th:text="*{name}"></td>
-            </tr>
-        </tbody>
-    </table>
-    <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
+    <div class="container">
+        <h1>Show della categoria</h1>
+        <h2 th:unless="${categoria != null}" th:text="|La categoria con id ${id} non è presente nel menù!|"></h2>
+        <div th:if="${categoria != null}" class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${categoria.name}"></h5>
+                            <a th:href="|/categorie|" class="btn btn-success">Lista categorie</a>
+                            <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning"
+                                th:href="|/categorie/edit/*{id}|">✏</a>
+                            <th:block sec:authorize="hasAuthority('ADMIN')"
+                                th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'categorie')}">
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <h3 th:if="${categoria.bevande.size()> 0} ">Bevande di [[${categoria.name}]]</h3>
+                    <table th:if="${categoria.bevande.size()> 0} " class="table table-success table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Dimensione</th>
+                                <th>Descrizione</th>
+                                <th>Prezzo</th>
+                                <th>Dettagli</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Modifica</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Elimina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="bevanda : ${categoria.bevande}" th:object="${bevanda}">
+                                <td th:text="*{id}"></td>
+                                <td th:text="*{name}"></td>
+                                <td th:text="*{dimensione}"></td>
+                                <td th:text="*{descrizione}"></td>
+                                <td th:text="*{prezzo}"></td>
+                                <td><a class="btn btn-success px-3" th:href="|/bevande/*{id}|"> + </a></td>
+                                <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning"
+                                        th:href="|/bevande/edit/*{id}|">✏</a>
+                                </td>
+                                <td sec:authorize="hasAuthority('ADMIN')">
+                                    <th:block th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'bevande')}">
+                                    </th:block>
+                                </td>
+                            </tr>
+                    </table>
+                    <h3 th:if="${categoria.cibi.size()> 0} ">Bevande di [[${categoria.name}]]</h3>
+                    <table th:if="${categoria.cibi.size()> 0} " class="table table-success table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descrizione</th>
+                                <th>Prezzo</th>
+                                <th>Dettagli</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Modifica</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Elimina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cibo : ${categoria.cibi}" th:object="${cibo}">
+                                <td th:text="*{id}"></td>
+                                <td th:text="*{name}"></td>
+                                <td th:text="*{descrizione}"></td>
+                                <td th:text="*{prezzo}"></td>
+                                <td><a class="btn btn-success px-3" th:href="|/cibi/*{id}|"> + </a></td>
+                                <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning"
+                                        th:href="|/cibi/edit/*{id}|">✏</a>
+                                </td>
+                                <td sec:authorize="hasAuthority('ADMIN')">
+                                    <th:block th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'cibi')}">
+                                    </th:block>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 
 </html>
