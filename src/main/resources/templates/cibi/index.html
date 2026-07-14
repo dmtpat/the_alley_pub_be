@@ -12,7 +12,8 @@
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <div class="container">
 
-        <h1>Index dei cibi</h1>
+        <h1>Index dei cibi <span class="fs-4"><a class="btn btn-sm btn-primary" href="cibi/create">Aggiungi un
+                    food</a></span></h1>
         <h2 th:unless="${cibi.size() > 0}" th:text="|Non ci sono cibi nel menù!|"></h2>
         <table th:if="${cibi.size() > 0}" class="table">
             <thead>
