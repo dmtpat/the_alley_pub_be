@@ -12,7 +12,8 @@
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <div class="container">
 
-        <h1>Index delle bevande <span class="fs-4"><a class="btn btn-sm btn-primary" href="bevande/create">Aggiungi una
+        <h1>Index delle bevande <span class="fs-4" sec:authorize="hasAuthority('ADMIN')"><a
+                    class="btn btn-sm btn-primary" href="bevande/create">Aggiungi una
                     bevanda</a></span></h1>
         <h2 th:unless="${bevande.size() > 0}" th:text="|Non ci sono bevande nel menù!|"></h2>
         <table th:if="${bevande.size() > 0}" class="table table-success table-hover">
