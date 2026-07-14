@@ -2,6 +2,8 @@ package org.java.the_alley_pub_be.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,6 +41,7 @@ public class Cibo {
             joinColumns = @JoinColumn(name = "cibo_id"),
             inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
+    @JsonIgnoreProperties("cibi")
     private List<Ingrediente> ingredienti;
 
     @ManyToMany
@@ -47,6 +50,7 @@ public class Cibo {
                 joinColumns =  @JoinColumn(name = "cibo_id"),
                         inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
+    @JsonIgnoreProperties("cibi")
     private List<Categoria> categorie;
 
     //---------------------------GETTER--------------------------------
