@@ -2,6 +2,8 @@ package org.java.the_alley_pub_be.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class Ingrediente {
     private String descrizione;
 
     @ManyToMany(mappedBy = "ingredienti")
+    @JsonIgnoreProperties("ingredienti")
     private List<Cibo> cibi;
 
     //---------------------------GETTER--------------------------------
