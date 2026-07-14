@@ -8,14 +8,14 @@
     <title>Bevande </title>
 </head>
 
-<body>
+<body style="background-color:  #516b51;">
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <div class="container">
         <h1>Bevanda</h1>
         <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo bevanda|"></h2>
         <h2 th:if="${edit}" th:text="|Modifica di ${bevanda.name}|"></h2>
         <form id="bevanda-form" method="post" th:action="${edit} ?@{|/bevande/edit/${bevanda.id}|} :@{/bevande/create}"
-            th:object="${bevanda}">
+            th:object="${bevanda}" class="border border-1 p-2 rounded-1">
             <div class="row">
                 <div class="col-6">
                     <label for="name" class="form-label">Nome</label>
@@ -37,10 +37,10 @@
                             th:field="${bevanda.categorie}" class="form-check-input">
                     </div>
                 </div>
-                <div class="container-fluid w-100 col-12">
-                    <input class="btn btn-outline-primary" type="submit" value="Submit">
+                <div class="container-fluid w-100 mt-2 col-12">
+                    <input class="btn btn-primary" type="submit" value="Submit">
                     <a th:href="${edit} ?@{|/bevande/edit/{id}(id=${bevanda.getId()})|} :@{/bevande/create}"
-                        class="btn btn-outline-danger ms-auto me-1"> Reset dei
+                        class="btn btn-danger ms-auto me-1"> Reset dei
                         valori</a>
                 </div>
             </div>

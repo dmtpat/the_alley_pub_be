@@ -8,20 +8,20 @@
     <title>Categorie</title>
 </head>
 
-<body>
+<body style="background-color:  #516b51;">
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <div class="container">
         <h2 th:if="${categoria == null}" th:text="|La categoria con id ${id} non è presente nel menù!|"></h2>
         <h2 th:if="${edit}" th:text="|Modifica di ${categoria.name}|"></h2>
         <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo cibo|"></h2>
         <form id="categoria-form" method="post"
-            th:action="${edit} ?@{|/categorie/edit/${categoria.id}|} :@{/categorie/create}" th:object="${categoria}">
-
+            th:action="${edit} ?@{|/categorie/edit/${categoria.id}|} :@{/categorie/create}" th:object="${categoria}"
+            class="border border-1 p-2 rounded-1">
             <label for="name" class="form-label">Nome</label>
             <input type="text" name="name" id="name" th:field="*{name}" class="form-control">
-            <div class="container-fluid w-100">
-                <input class="btn btn-outline-primary" type="submit" value="Submit">
-                <a class="btn btn-outline-danger ms-auto me-1"
+            <div class="container-fluid w-100 mt-2">
+                <input class="btn btn-primary" type="submit" value="Submit">
+                <a class="btn btn-danger ms-auto me-1"
                     th:href="${edit} ?@{|/categorie/edit/{id}(id=${categoria.getId()})|} :@{/categorie/create}"> Reset
                     dei valori</a>
             </div>
