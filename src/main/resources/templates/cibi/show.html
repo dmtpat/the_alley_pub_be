@@ -22,7 +22,7 @@
                             <p class="card-text" th:text="${cibo.descrizione}" />
                             <a th:href="|/cibi|" class="btn btn-success">Lista cibi</a>
                             <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning"
-                                th:href="|cibi/edit/*{id}|">✏</a>
+                                th:href="|/cibi/edit/*{id}|">✏</a>
                             <th:block sec:authorize="hasAuthority('ADMIN')"
                                 th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'cibi')}">
                             </th:block>
@@ -47,9 +47,9 @@
                                 <td th:text="*{id}"></td>
                                 <td th:text="*{name}"></td>
                                 <td th:text="*{descrizione}"></td>
-                                <td><a class="btn btn-success px-3" th:href="|ingredienti/*{id}|"> + </a></td>
+                                <td><a class="btn btn-success px-3" th:href="|/ingredienti/*{id}|"> + </a></td>
                                 <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning"
-                                        th:href="|ingredienti/edit/*{id}|">✏</a>
+                                        th:href="|/ingredienti/edit/*{id}|">✏</a>
                                 </td>
                                 <td sec:authorize="hasAuthority('ADMIN')">
                                     <th:block
@@ -74,9 +74,9 @@
                             <tr th:each="categoria : ${cibo.categorie}" th:object="${categoria}">
                                 <td th:text="*{id}"></td>
                                 <td th:text="*{name}"></td>
-                                <td><a class="btn btn-success px-3" th:href="|categorie/*{id}|"> + </a></td>
+                                <td><a class="btn btn-success px-3" th:href="|/categorie/*{id}|"> + </a></td>
                                 <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning"
-                                        th:href="|categorie/edit/*{id}|">✏</a>
+                                        th:href="|/categorie/edit/*{id}|">✏</a>
                                 </td>
                                 <td sec:authorize="hasAuthority('ADMIN')">
                                     <th:block th:replace="~{fragments/deleteModal:: deleteModal(*{name}, 'categorie')}">
