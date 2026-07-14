@@ -10,35 +10,42 @@
 
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Bevanda</h1>
-    <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo bevanda|"></h2>
-    <h2 th:if="${edit}" th:text="|Modifica di ${bevanda.name}|"></h2>
-    <form id="bevanda-form" method="post" th:action="${edit} ?@{|/bevande/edit/${bevanda.id}|} :@{/bevande/create}"
-        th:object="${bevanda}">
+    <div class="container">
+        <h1>Bevanda</h1>
+        <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo bevanda|"></h2>
+        <h2 th:if="${edit}" th:text="|Modifica di ${bevanda.name}|"></h2>
+        <form id="bevanda-form" method="post" th:action="${edit} ?@{|/bevande/edit/${bevanda.id}|} :@{/bevande/create}"
+            th:object="${bevanda}">
+            <div class="row">
+                <div class="col-6">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" name="name" id="name" th:field="*{name}" class="form-control">
+                    <label for="descrizione" class="form-label">Descrizione</label>
+                    <textarea name="descrizione" id="descrizione" th:field="*{descrizione}"
+                        class="form-control"></textarea>
+                    <label for="prezzo" class="form-label">Prezzo</label>
+                    <input type="number" name="prezzo" id="prezzo" th:field="*{prezzo}" class="form-control">
+                    <label for="dimensione" class="form-label">Dimensione</label>
+                    <input type="number" id="number" th:field="*{dimensione}" class="form-control">
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name" th:field="*{name}">
-        <label for="descrizione">Descrizione</label>
-        <textarea name="descrizione" id="descrizione" th:field="*{descrizione}"></textarea>
-        <label for="prezzo">Prezzo</label>
-        <input type="number" name="prezzo" id="prezzo" th:field="*{prezzo}">
-        <label for="dimensione">Dimensione</label>
-        <input type="number" id="number" th:field="*{name}">
-
-        <div id="categorie-checkbox">
-            <h5>Seleziona le categorie</h5>
-            <div th:each="categoria : ${categorie}">
-                <label for="|categoria-${.id}|" th:text="${categoria.name}"></label>
-                <input type="checkbox" id="|categoria-${.id}|" th:value="${categoria.id}"
-                    th:field="${bevanda.categorie}">
+                </div>
+                <div id="categorie-checkbox" class="form-check col-6">
+                    <h5>Seleziona le categorie</h5>
+                    <div th:each="categoria : ${categorie}">
+                        <label for="|categoria-${.id}|" th:text="${categoria.name}" class="form-check-label"></label>
+                        <input type="checkbox" id="|categoria-${.id}|" th:value="${categoria.id}"
+                            th:field="${bevanda.categorie}" class="form-check-input">
+                    </div>
+                </div>
+                <div class="container-fluid w-100 col-12">
+                    <input class="btn btn-outline-primary" type="submit" value="Submit">
+                    <a th:href="${edit} ?@{|/bevande/edit/{id}(id=${bevanda.getId()})|} :@{/bevande/create}"
+                        class="btn btn-outline-danger ms-auto me-1"> Reset dei
+                        valori</a>
+                </div>
             </div>
-        </div>
-        <div>
-            <input type="submit" value="Submit">
-            <a th:href="${edit} ?@{|/bevande/edit/{id}(id=${bevanda.getId()})|} :@{/bevande/create}"> Reset dei
-                valori</a>
-        </div>
-    </form>
+        </form>
+    </div>
     <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 

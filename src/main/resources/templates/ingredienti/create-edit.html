@@ -10,23 +10,27 @@
 
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Ingrediente</h1>
-    <h2 th:if="${ingrediente == null}" th:text="|L'ingrediente con id ${id} non è presente nel menù!|"></h2>
-    <h2 th:if="${edit}" th:text="|Modifica di ${ingrediente.name}|"></h2>
-    <form id="ingrediente-form" method="post"
-        th:action="${edit} ?@{|/ingredienti/edit/${ingrediente.id}|} :@{/ingredienti/create}"
-        th:object="${ingrediente}">
+    <div class="container">
+        <h1>Ingrediente</h1>
+        <h2 th:if="${ingrediente == null}" th:text="|L'ingrediente con id ${id} non è presente nel menù!|"></h2>
+        <h2 th:if="${edit}" th:text="|Modifica di ${ingrediente.name}|"></h2>
+        <form id="ingrediente-form" method="post"
+            th:action="${edit} ?@{|/ingredienti/edit/${ingrediente.id}|} :@{/ingredienti/create}"
+            th:object="${ingrediente}">
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name" th:field="*{name}">
-        <label for="descrizione">Descrizione</label>
-        <textarea name="descrizione" id="descrizione" th:field="*{descrizione}"></textarea>
-        <div>
-            <input type="submit" value="Submit">
-            <a th:href="${edit} ?@{|/ingredienti/edit/{id}(id=${ingrediente.getId()})|} :@{/ingredienti/create}"> Reset
-                dei valori</a>
-        </div>
-    </form>
+            <label for="name" class="form-label">Nome</label>
+            <input type="text" name="name" id="name" th:field="*{name}" class="form-control">
+            <label for="descrizione" class="form-label">Descrizione</label>
+            <textarea name="descrizione" id="descrizione" th:field="*{descrizione}" class="form-control"></textarea>
+            <div class="container-fluid w-100">
+                <input class="btn btn-outline-primary" type="submit" value="Submit">
+                <a th:href="${edit} ?@{|/ingredienti/edit/{id}(id=${ingrediente.getId()})|} :@{/ingredienti/create}"
+                    class="btn btn-outline-danger ms-auto me-1">
+                    Reset
+                    dei valori</a>
+            </div>
+        </form>
+    </div>
     <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
 </body>
 

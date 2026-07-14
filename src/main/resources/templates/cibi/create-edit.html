@@ -11,7 +11,7 @@
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
     <div class="container">
-        <h1>Show dei cibi</h1>
+        <h1>Food</h1>
         <h2 th:unless="${edit}" th:text="|Aggiungi un nuovo cibo|"></h2>
         <h2 th:if="${edit}" th:text="|Modifica di ${cibo.name}|"></h2>
         <form id="cibo-form" method="post" th:action="${edit} ?@{|/cibi/edit/${cibo.id}|} :@{/cibi/create}"
