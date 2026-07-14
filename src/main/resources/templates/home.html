@@ -10,9 +10,11 @@
 
 <body>
     <div th:replace="~{ fragments/navbar :: navbar }"></div>
-    <h1>Index generale</h1>
-    <p>pagina iniziale dell'app di The Alley Pub</p>
-    <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
+    <div class="container text-center">
+        <h1>Index generale</h1>
+        <p>pagina iniziale dell'app di The Alley Pub</p>
+        <th:block th:replace="~{fragments/bootstrap :: bootstrapJs()}"></th:block>
+    </div>
 </body>
 
 </html>
