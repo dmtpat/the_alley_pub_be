@@ -4,9 +4,15 @@ import java.util.List;
 
 import org.java.the_alley_pub_be.model.Bevanda;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.java.the_alley_pub_be.model.Categoria;
+
 
 public interface BevandaRepository extends JpaRepository<Bevanda, Integer> {
     
     public List<Bevanda> findByNameContainingIgnoreCase(String name);
 
+    public List<Bevanda> findByCategorieIgnoreCase(Categoria categoria);
+
+    public List<Bevanda> findByCategorieNameContainingIgnoreCase(String name);
 }
+
